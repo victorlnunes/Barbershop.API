@@ -11,6 +11,7 @@ namespace Barbershop.API.Models
             Email = email;
             Phone = phone;
             CreatedAt = DateTime.Now;
+            Appointments = new List<Appointment>();
         }
         public int Id { get; private set; }
         public string FirstName { get; private set; }
@@ -19,5 +20,6 @@ namespace Barbershop.API.Models
         public string Phone { get; private set; }
         public DateTime CreatedAt { get; private set; }
         public DateTime UpdatedAt { get; private set; }
+        public IList<Appointment> Appointments { get; private set; } 
     }
 }
