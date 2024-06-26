@@ -8,9 +8,7 @@
             Barber = barber;
             Client = client;
             CreatedAt = DateTime.Now;
-            
         }
-
         public int Id { get; private set; }
         public DateTime Schedule { get; private set; }
         public Barber Barber { get; private set; }
