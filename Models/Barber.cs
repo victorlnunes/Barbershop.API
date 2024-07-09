@@ -19,6 +19,6 @@
         public string Bio { get; private set; }
         public DateTime CreatedAt { get; private set; }
         public DateTime UpdatedAt { get; private set; }
-        public IList<Appointment> Appointments { get; private set; }
+        public virtual IList<Appointment> Appointments { get; private set; }
     }
 }
