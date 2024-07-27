@@ -31,7 +31,7 @@ namespace Barbershop.API.Data.Mappings
                    .HasColumnType("VARCHAR")
                    .HasMaxLength(14);
             builder.Property(x => x.Bio)
-                    .HasColumnType("VARCHAR")
+                    .HasColumnType("VARCHAR");
             builder.Property(x => x.CreatedAt)
                 .HasColumnType("DATETIME");
             builder.Property(x => x.UpdatedAt)
