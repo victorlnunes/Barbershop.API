@@ -33,9 +33,11 @@ namespace Barbershop.API.Data.Mappings
             builder.Property(x => x.Bio)
                     .HasColumnType("VARCHAR");
             builder.Property(x => x.CreatedAt)
-                .HasColumnType("DATETIME");
+                .HasColumnType("DATETIME")
+                .HasDefaultValueSql("CURRENT_TIMESTAMP");
             builder.Property(x => x.UpdatedAt)
-                .HasColumnType("DATETIME");
+                .HasColumnType("DATETIME")
+                .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
             builder.HasIndex(x => x.Email, "IX_Client_Email").IsUnique();
             builder.HasIndex(x => x.Phone, "IX_Client_Phone").IsUnique();
