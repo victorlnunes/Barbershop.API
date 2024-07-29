@@ -15,8 +15,10 @@ namespace Barbershop.API.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration(new AppointmentMap());
+            modelBuilder.ApplyConfiguration(new BarberMap());
             modelBuilder.ApplyConfiguration(new ClientMap());
-
-        }
+            modelBuilder.ApplyConfiguration(new ServiceMap());  
+        }   
     }
 }
