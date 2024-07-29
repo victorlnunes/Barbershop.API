@@ -1,6 +1,7 @@
 ﻿using Barbershop.API.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System.Reflection.Emit;
 
 namespace Barbershop.API.Data.Mappings
 {
@@ -27,6 +28,29 @@ namespace Barbershop.API.Data.Mappings
             builder.HasOne(x => x.Client)
                 .WithMany(x => x.Appointments)
                 .HasConstraintName("FK_Appointments_Client");
+
+            builder.HasMany(a => a.Services)
+                    .WithMany(s => s.Appointments)
+                    .UsingEntity<Dictionary<string, object>>(
+                        "AppointmentService",
+                        j => j
+                            .HasOne<Service>()
+                            .WithMany()
+                            .HasForeignKey("ServiceId")
+                            .HasConstraintName("FK_AppointmentService_ServiceId")
+                            .OnDelete(DeleteBehavior.Cascade),
+                        j => j
+                            .HasOne<Appointment>()
+                            .WithMany()
+                            .HasForeignKey("AppointmentId")
+                            .HasConstraintName("FK_AppointmentService_AppointmentId")
+                            .OnDelete(DeleteBehavior.ClientCascade),
+                        j =>
+                        {
+                            j.Property<DateTime>("CreatedAt").HasDefaultValueSql("CURRENT_TIMESTAMP");
+                            j.Property<DateTime>("UpdatedAt").HasDefaultValueSql("CURRENT_TIMESTAMP");
+                            j.HasKey("AppointmentId", "ServiceId");
+                        });
 
 
             builder.Property(x => x.CreatedAt)
