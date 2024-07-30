@@ -14,12 +14,12 @@
         public int Id { get; private set; }
         public DateTime Schedule { get; private set; }
         public int BarberId { get; private set; }
-        public virtual Barber Barber { get; private set; }
+        public Barber Barber { get; private set; }
         public int ClientId { get; private set; }
-        public virtual Client Client { get; private set; }
+        public Client Client { get; private set; }
         public DateTime CreatedAt { get; private set; }
         public DateTime UpdatedAt { get; private set; }
-        public virtual IList<Service> Services { get; private set; }
+        public IList<Service> Services { get; private set; }
 
     }
 }
