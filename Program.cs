@@ -7,8 +7,10 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<BarbershopContext>(
     options => options.UseSqlServer(connectionString));
 
+builder.Services.AddControllers();
+
 var app = builder.Build();
 
-app.MapGet("/", () => "Hello World!");
+app.MapControllers();
 
 app.Run();
