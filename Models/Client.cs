@@ -13,6 +13,19 @@ namespace Barbershop.API.Models
             CreatedAt = DateTime.Now;
             Appointments = new List<Appointment>();
         }
+        public void UpdateName(string firstName, string lastName)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+        }
+        public void UpdateEmail(string email)
+        {
+            Email = email;
+        }
+        public void UpdatePhone(string phone)
+        {
+            Phone = phone;
+        }
         public int Id { get; private set; }
         public string FirstName { get; private set; }
         public string LastName { get; private set;}
