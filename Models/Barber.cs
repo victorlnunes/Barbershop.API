@@ -11,6 +11,27 @@
             Bio = bio;
             CreatedAt = DateTime.Now;
         }
+        public void UpdateName(string firstName, string lastName)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+        }
+
+        public void UpdateEmail(string email)
+        {
+            Email = email;
+        }
+
+        public void UpdatePhone(string phone)
+        {
+            Phone = phone;
+        }
+
+        public void UpdateBio(string bio)
+        {
+            Bio = bio;
+        }
+
         public int Id { get; private set; }
         public string FirstName { get; private set; }
         public string LastName { get; private set;}
