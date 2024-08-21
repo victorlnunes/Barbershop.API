@@ -39,8 +39,8 @@ namespace Barbershop.API.Data.Mappings
                 .HasColumnType("DATETIME")
                 .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-            builder.HasIndex(x => x.Email, "IX_Client_Email").IsUnique();
-            builder.HasIndex(x => x.Phone, "IX_Client_Phone").IsUnique();
+            builder.HasIndex(x => x.Email, "IX_Barber_Email").IsUnique();
+            builder.HasIndex(x => x.Phone, "IX_Barber_Phone").IsUnique();
         }
     }
 }

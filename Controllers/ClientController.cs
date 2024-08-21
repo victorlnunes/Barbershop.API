@@ -3,7 +3,6 @@ using Barbershop.API.Models;
 using Barbershop.API.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Client;
 
 namespace Barbershop.API.Controllers
 {
