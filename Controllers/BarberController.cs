@@ -1,9 +1,9 @@
 ﻿using Barbershop.API.Data;
 using Barbershop.API.Models;
 using Barbershop.API.ViewModels;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Barbershop.API.Controllers
 {
@@ -11,9 +11,13 @@ namespace Barbershop.API.Controllers
     public class BarberController : ControllerBase
     {
         private readonly BarbershopContext _context;
-        public BarberController(BarbershopContext contex)
+
+        private readonly IMemoryCache _cache;
+
+        public BarberController(BarbershopContext contex, IMemoryCache cache)
         {
             _context = contex;
+            _cache = cache;
         }
 
         [HttpGet("v1/barbers")]
@@ -21,13 +25,20 @@ namespace Barbershop.API.Controllers
         {
             try
             {
-                var barbers = await _context.Barbers.ToListAsync();
-                
+                var barbers = await _cache.GetOrCreateAsync(
+                   "ServicesCache",
+                   async cacheEntry =>
+                   {
+                       cacheEntry.SlidingExpiration = TimeSpan.FromHours(3);
+                       return await _context.Barbers.ToListAsync();
+                   }
+               ) ?? [];
+
                 return Ok(new ResultViewModel<List<Barber>>(barbers));
             }
             catch (Exception)
             {
-                 return StatusCode(500, new ResultViewModel<Barber>("Internal server error"));
+                return StatusCode(500, new ResultViewModel<Barber>("Internal server error"));
             }
         }
         [HttpGet("v1/barbers/{id:int}")]
@@ -37,7 +48,7 @@ namespace Barbershop.API.Controllers
             {
                 var barber = await _context.Barbers.FirstOrDefaultAsync(x => x.Id == id);
 
-                if(barber == null) return NotFound(new ResultViewModel<Barber>("Barber not found"));
+                if (barber == null) return NotFound(new ResultViewModel<Barber>("Barber not found"));
 
                 return Ok(new ResultViewModel<Barber>(barber));
             }
@@ -57,7 +68,7 @@ namespace Barbershop.API.Controllers
                 await _context.SaveChangesAsync();
                 return Created($"v1/barbers/{barber.Id}", new ResultViewModel<Barber>(barber));
             }
-            catch(DbUpdateException ex)
+            catch (DbUpdateException ex)
             {
                 if (ex.InnerException?.Message.Contains("IX_Barber_Email") == true)
                     return Conflict(new ResultViewModel<Client>("Email already registered"));

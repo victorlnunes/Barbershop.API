@@ -9,6 +9,10 @@ builder.Services.AddDbContext<BarbershopContext>(
 
 builder.Services.AddControllers();
 
+builder.Services.AddMemoryCache();
+
+builder.Services.AddEndpointsApiExplorer();
+
 var app = builder.Build();
 
 app.MapControllers();
