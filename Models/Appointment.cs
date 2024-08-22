@@ -2,6 +2,10 @@
 {
     public class Appointment
     {
+        public Appointment()
+        {
+            
+        }
         public Appointment(DateTime schedule, Barber barber, Client client)
         {
             Schedule = schedule;
