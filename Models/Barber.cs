@@ -10,6 +10,7 @@
             Phone = phone;
             Bio = bio;
             CreatedAt = DateTime.Now;
+            Appointments = new List<Appointment>();
         }
         public void UpdateName(string firstName, string lastName)
         {
