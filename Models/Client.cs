@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Barbershop.API.Models
+﻿namespace Barbershop.API.Models
 {
     public class Client
     {
